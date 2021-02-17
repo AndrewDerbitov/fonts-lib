@@ -1,0 +1,214 @@
+{
+	"name": "fonts-lib",
+	"version": "0.0.1",
+	"description": "Fonts Library",
+	"author": "",
+	"private": true,
+	"homepage": "https://github.com/AndrewDerbitov/fonts-lib.git",
+	"license": "",
+	"main": "lib/index.js",
+	"directories": {
+		"lib": "lib"
+	},
+	"files": [
+		"lib"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/AndrewDerbitov/fonts-lib.git"
+	},
+	"scripts": {
+		"flow": "flow",
+		"flow:coverage": "flow-coverage-report -i \"src/**/*.js\" -x \"src/**/*.test.js\" -t html -t json -t text --threshold 40",
+		"test": "npx cross-env NODE_ENV=test jest  --watch",
+		"test:coverage": "npx cross-env NODE_ENV=test jest --coverage",
+		"build:clean": "npx rimraf lib",
+		"build:lib": "npx cross-env NODE_ENV=production babel --source-maps inline --out-dir ./lib/ src --copy-files",
+		"build:flow": "flow-copy-source -v -i '*.test.js' src lib",
+		"build": "npm run build:clean && npm run build:lib && npm run build:flow",
+		"dev": "npx cross-env NODE_ENV=development babel  --watch --source-maps inline --out-dir ./lib/ src --copy-files",
+		"flow:watch": "flow-copy-source -w -v -i '**/__tests__/**' src lib",
+		"start": "npx npm-run-all --parallel dev flow:watch",
+		"precommit": "lint-staged",
+		"lint:js": "eslint . ",
+		"lint:fix": "npm run lint:js -- --fix",
+		"lint": "npm run lint:js",
+		"build:deptree": "echo 'build:deptree'",
+		"lint:depcruise": "echo 'lint:depcruise'"
+	},
+	"bugs": {
+		"url": "https://github.com/AndrewDerbitov/fonts-lib/issues"
+	},
+	"devDependencies": {
+		"@babel/cli": "7.10.5",
+		"@babel/core": "7.11.1",
+		"@babel/preset-env": "^7.9.6",
+		"@babel/preset-flow": "^7.10.1",
+		"@babel/preset-react": "^7.9.4",
+		"@babel/register": "^7.9.0",
+		"babel-eslint": "10.1.0",
+		"babel-jest": "26.1.0",
+		"babel-plugin-emotion": "^10.0.33",
+		"emotion-theming": "^10.0.27",
+		"eslint": "^7.2.0",
+		"eslint-config-airbnb": "^18.2.0",
+		"eslint-config-prettier": "^6.11.0",
+		"eslint-plugin-flowtype": "5.2.0",
+		"eslint-plugin-import": "^2.22.0",
+		"eslint-plugin-jest": "23.20.0",
+		"eslint-plugin-jsx-a11y": "^6.3.1",
+		"eslint-plugin-react": "^7.20.6",
+		"eslint-plugin-react-hooks": "^4.0.0",
+		"flow-bin": "0.126.0",
+		"flow-copy-source": "^2.0.9",
+		"flow-coverage-report": "^0.7.0",
+		"jest": "26.1.0",
+		"lint-staged": "^10.0.7",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-test-renderer": "16.13.1"
+	},
+	"dependencies": {
+		"@emotion/core": "^10.0.28",
+		"@emotion/styled": "^10.0.27",
+		"@emulous/constants": "^0.0.1",
+		"@emulous/types": "^0.0.1",
+		"@emulous/uneon": "^0.0.1",
+		"emotion-theming": "^10.0.27",
+		"@emulous/logger": "^0.0.1",
+		"empty": "^0.10.1",
+		"lodash": "4.17.19",
+		"react": "^16.13.1",
+		"react-dom": "^16.13.1",
+		"react-infinite-scroller": "^1.2.4",
+		"react-virtualized": "^9.22.2"
+	},
+	"eslintConfig": {
+		"parser": "babel-eslint",
+		"extends": [
+			"airbnb",
+			"airbnb/hooks",
+			"plugin:flowtype/recommended",
+			"prettier",
+			"prettier/babel",
+			"prettier/react",
+			"prettier/flowtype"
+		],
+		"env": {
+			"browser": true,
+			"node": true,
+			"es6": true
+		},
+		"globals": {
+			"SyntheticEvent": true,
+			"expect": true,
+			"chai": true,
+			"sinon": true
+		},
+		"plugins": [
+			"flowtype"
+		],
+		"parserOptions": {
+			"ecmaVersion": 6,
+			"sourceType": "module",
+			"ecmaFeatures": {
+				"jsx": true,
+				"legacyDecorators": true
+			}
+		},
+		"rules": {
+			"react/default-props-match-prop-types": [
+				"error",
+				{
+					"allowRequiredDefaults": true
+				}
+			],
+			"react/require-default-props": [
+				"off"
+			],
+			"react/jsx-filename-extension": [
+				0
+			],
+			"react/jsx-indent": [
+				"error",
+				"tab"
+			],
+			"react/jsx-indent-props": [
+				"error",
+				"tab"
+			]
+		},
+		"overrides": [
+			{
+				"files": [
+					"**/*.test.js"
+				],
+				"env": {
+					"jest": true
+				},
+				"plugins": [
+					"jest"
+				]
+			}
+		]
+	},
+	"babel": {
+		"presets": [
+			"@babel/env",
+			"@babel/preset-flow",
+			"@babel/preset-react"
+		],
+		"plugins": [
+			"emotion"
+		],
+		"env": {
+			"development": {
+				"ignore": [
+					"**/__tests__",
+					"**/*.test.js"
+				]
+			},
+			"production": {
+				"ignore": [
+					"**/__tests__",
+					"**/*.test.js"
+				],
+				"only": [
+					"src"
+				],
+				"plugins": [
+					"emotion"
+				]
+			},
+			"test": {
+				"plugins": [
+					"dynamic-import-node"
+				]
+			}
+		}
+	},
+	"lint-staged": {
+		"*.js": [
+			"cross-env STRICT_MODE=true eslint --fix",
+			"git add"
+		]
+	},
+	"jest": {
+		"modulePaths": [
+			"<rootDir>/src"
+		],
+		"collectCoverageFrom": [
+			"src/**/*.{js,jsx,mjs}"
+		],
+		"testMatch": [
+			"<rootDir>/src/**/*.test.js"
+		],
+		"testEnvironment": "jsdom",
+		"transform": {
+			"^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest"
+		},
+		"transformIgnorePatterns": [
+			"[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
+		]
+	}
+}

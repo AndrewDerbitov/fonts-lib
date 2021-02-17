@@ -1,0 +1,25 @@
+[ignore]
+<PROJECT_ROOT>/lib/.*
+
+
+[include]
+../../flow-typed
+
+
+[libs]
+flow-typed
+
+
+[declarations]
+.*/node_modules/.*
+
+
+[options]
+emoji=true
+
+esproposal.optional_chaining=enable
+module.ignore_non_literal_requires=true
+
+module.name_mapper.extension='svg' -> '<PROJECT_ROOT>/../../flow-typed/SVGModule.js.flow'
+
+[strict]
